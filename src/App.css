@@ -1,4 +1,5 @@
-.App {
+/*main in start*/
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +36,18 @@
   to {
     transform: rotate(360deg);
   }
+} */
+/*main in start*/
+
+/*slider*/
+/* .App {
+  max-width: 600px;
+  margin: 0 auto;
+  margin-top: 50px;
+} */
+
+/*slider end*/
+.main{
+  min-height: 800px;
+
 }

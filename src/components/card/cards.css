@@ -1,0 +1,23 @@
+
+
+.ui.cards>.card{
+    display: flex;
+    background-color:white;
+    justify-content: center;
+
+}
+.ui.card {
+    margin: 0;
+    align-items: center;
+
+}
+
+.ui.grid{
+    margin: 2vh;
+gap: 20px;
+}
+
+.ui.card>.image, .ui.cards>.card>.image {
+    width: 100px;
+    background:none;
+}
