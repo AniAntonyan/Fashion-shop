@@ -1,5 +1,5 @@
-/*main in start*/
-/* .App {
+
+ .App {
   text-align: center;
 }
 
@@ -14,7 +14,7 @@
   }
 }
 
-.App-header {
+/* .App-header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -23,7 +23,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-}
+} */
 
 .App-link {
   color: #61dafb;
@@ -36,17 +36,8 @@
   to {
     transform: rotate(360deg);
   }
-} */
-/*main in start*/
+} 
 
-/*slider*/
-/* .App {
-  max-width: 600px;
-  margin: 0 auto;
-  margin-top: 50px;
-} */
-
-/*slider end*/
 .main{
   min-height: 800px;
 

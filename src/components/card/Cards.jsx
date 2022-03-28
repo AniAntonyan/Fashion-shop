@@ -7,12 +7,12 @@ const Cards = () => {
   const [result, setResult] = useState([]);
 
   useEffect(() => {
-    getData().then((param) => {
-      setResult(param);
-    });
-    //   getProducts().then((param) => {
-    //    setResult(param);
-    //  });
+    // getData().then((param) => {
+    //   setResult(param);
+    // });
+      getProducts().then((param) => {
+       setResult(param);
+     });
     
   }, []);
 

@@ -1,9 +1,10 @@
 import React from "react";
 import { createMedia } from "@artsy/fresnel";
 import { Container, Icon, Image, Menu, Sidebar,Dropdown } from "semantic-ui-react";
-import { Link } from "react-router-dom";
+import { Outlet,Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import "./Header.css"
+import { useState } from "react";
+import "./Header.css";
 
 const AppMedia = createMedia({
   breakpoints: {
@@ -34,7 +35,7 @@ const NavBarMobile = (props) => {
       <Sidebar.Pusher
         dimmed={visible}
         onClick={onPusherClick}
-        style={{ minHeight: "15vh" }}
+        
       >
         <Menu fixed="top"  inverted>
           <Menu.Item>
@@ -55,12 +56,6 @@ const NavBarMobile = (props) => {
           return <Menu.Item key={index} {...item.link} />;
         })}
       </Menu.Menu>
-
-          {/* <Menu.Menu position="right">
-            {rightItems.map((item) => (
-              <Menu.Item {...item} />
-            ))}
-          </Menu.Menu> */}
         </Menu>
         {children}
       </Sidebar.Pusher>
@@ -70,26 +65,24 @@ const NavBarMobile = (props) => {
 
 const NavBarDesktop = (props) => {
   const { leftItems, rightItems } = props;
-console.log(rightItems)
+
   return (
-    <Menu fixed="top" >
+    <Menu fixed="top"inverted >
       <Menu.Item>
-        <Image size="mini" src="https://react.semantic-ui.com/logo.png" />
+        <Image size="mini" src="	https://freedesignfile.com/upload/2020/03/Fashion-shop-logo-vector.jpg
+" />
       </Menu.Item>
 
-      {leftItems.map((item) => (
-        <Menu.Item {...item} />
+      {leftItems.map((item,index) => (
+        <Menu.Item {...item} key={index} />
       ))}
 
-      {/* <Menu.Menu position="right">
-        {rightItems.map((item) => (
-          <Menu.Item {...item} />
-        ))} */}
+     
 
         
          <Menu.Menu position="right" key="rightItems">
         {rightItems.map((item, index) => {
-          console.log(item.Link)
+        
           if (item.children) {
             return (
               <Menu.Item key={`rightParams${index}`}>{item.children}</Menu.Item>
@@ -98,7 +91,7 @@ console.log(rightItems)
           return <Menu.Item key={index} {...item.Link} />;
         })}
       </Menu.Menu>
-      {/* /</Menu></Menu.Menu> */}
+     
     </Menu>
   );
 };
@@ -121,7 +114,7 @@ class NavBar extends React.Component {
     const { visible } = this.state;
 
     return (
-      <>
+      <div className="customHeader">
         <Media at="mobile">
           <NavBarMobile
             leftItems={leftItems}
@@ -135,7 +128,7 @@ class NavBar extends React.Component {
         <Media greaterThan="mobile">
           <NavBarDesktop leftItems={leftItems} rightItems={rightItems} />
         </Media>
-      </>
+      </div>
     );
   }
 }
@@ -146,12 +139,7 @@ const leftItems = [
   
 ];
 
-const rightItems = [
- 
-];
-
-
-
+const rightItems = [];
 
 function Header() {
 const{user,isAuthenticated,logout}=useAuth0()
@@ -163,10 +151,9 @@ if(isAuthenticated){
       <Image avatar spaced="right" src={user.picture} />,
       <Dropdown pointing="top left" key="userDropdown">
         <Dropdown.Menu key="userDropdownMenu">
-          <Dropdown.Item text={user.name} key={user.name}/>
+          <Dropdown.Item text={user.name} /> 
           <Dropdown.Item as={Link}to ="/dashboard" text="Dashboard" />
            <Dropdown.Item onClick={logout} text="Sign out" icon="power" />
-        
         </Dropdown.Menu>
       </Dropdown>
     ],
