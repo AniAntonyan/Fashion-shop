@@ -1,15 +1,8 @@
 .ui.fixed.menu.top{
-    background-color: #BF6A96 ;  
+    background-color: rgb(64, 125, 238);
 }
-/* .ui.menu{
-    background-color: #BF6A96 ;
-} */
-.customHeader,.pusher{
-    height: 80px;
-}
-.ui.mini.image, .ui.mini.images .image, .ui.mini.images img, .ui.mini.images svg {
-    width: 55px;
-    height: auto;
-    font-size: .78571429rem;
-    border-radius: 50%;
+
+.customHeader, .pusher{
+    height: 60px;
+    
 }

@@ -1,5 +1,3 @@
-
-
 .ui.cards>.card{
     display: flex;
     background-color:white;
@@ -12,12 +10,13 @@
 
 }
 
-.ui.grid{
+.productItems.ui.grid {
     margin: 2vh;
-gap: 20px;
-}
+    gap: 20px;
+  }
 
-.ui.card>.image, .ui.cards>.card>.image {
+.ui.card>.image,
+ .ui.cards>.card>.image {
     width: 100px;
     background:none;
 }

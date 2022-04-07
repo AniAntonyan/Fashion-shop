@@ -1,10 +1,10 @@
 import React from "react";
 import { createMedia } from "@artsy/fresnel";
-import { Container, Icon, Image, Menu, Sidebar,Dropdown } from "semantic-ui-react";
-import { Outlet,Link } from "react-router-dom";
+import { Icon, Image, Menu, Sidebar, Dropdown } from "semantic-ui-react";
+import { Outlet, Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useState } from "react";
 import "./Header.css";
+import { nanoid } from "nanoid";
 
 const AppMedia = createMedia({
   breakpoints: {
@@ -18,8 +18,14 @@ const AppMedia = createMedia({
 const { Media, MediaContextProvider } = AppMedia;
 
 const NavBarMobile = (props) => {
-  const { children, leftItems, onPusherClick, onToggle, rightItems, visible } =
-    props;
+  const { 
+    children, 
+    leftItems, 
+    onPusherClick,
+    onToggle,
+    rightItems,
+    visible 
+  } = props;
 
   return (
     <Sidebar.Pushable>
@@ -27,35 +33,36 @@ const NavBarMobile = (props) => {
         as={Menu}
         animation="overlay"
         icon="labeled"
-        inverted
         items={leftItems}
+        inverted
         vertical
         visible={visible}
+        key={nanoid()}
       />
-      <Sidebar.Pusher
+      <Sidebar.Pusher 
         dimmed={visible}
         onClick={onPusherClick}
-        
       >
-        <Menu fixed="top"  inverted>
-          <Menu.Item>
+        <Menu fixed="top" inverted>
+          <Menu.Item key={nanoid()}>
             <Image size="mini" src="https://react.semantic-ui.com/logo.png" />
           </Menu.Item>
-          <Menu.Item onClick={onToggle}>
+          <Menu.Item onClick={onToggle} key={nanoid()}>
             <Icon name="sidebar" />
           </Menu.Item>
 
-
           <Menu.Menu position="right" key="rightItems">
-        {rightItems.map((item, index) => {
-          if (item.children) {
-            return (
-              <Menu.Item key={`rightParams${index}`}>{item.children}</Menu.Item>
-            );
-          }
-          return <Menu.Item key={index} {...item.link} />;
-        })}
-      </Menu.Menu>
+            {rightItems.map((item, index) => {
+              if (item.children) {
+                return (
+                  <Menu.Item key={`rightParams${index}`}>
+                    {item.children}
+                  </Menu.Item>
+                );
+              }
+              return <Menu.Item key={index} {...item.link} />;
+            })}
+          </Menu.Menu>
         </Menu>
         {children}
       </Sidebar.Pusher>
@@ -67,31 +74,25 @@ const NavBarDesktop = (props) => {
   const { leftItems, rightItems } = props;
 
   return (
-    <Menu fixed="top"inverted >
-      <Menu.Item>
-        <Image size="mini" src="	https://freedesignfile.com/upload/2020/03/Fashion-shop-logo-vector.jpg
-" />
+    <Menu fixed="top" inverted>
+      <Menu.Item key={nanoid()}>
+        <Image size="mini" src="https://react.semantic-ui.com/logo.png" />
       </Menu.Item>
 
-      {leftItems.map((item,index) => (
-        <Menu.Item {...item} key={index} />
+      {leftItems.map((item, index) => (
+        <Menu.Item {...item} key={index}/>
       ))}
 
-     
-
-        
-         <Menu.Menu position="right" key="rightItems">
+      <Menu.Menu position="right" key="rightItems">
         {rightItems.map((item, index) => {
-        
           if (item.children) {
             return (
               <Menu.Item key={`rightParams${index}`}>{item.children}</Menu.Item>
             );
           }
-          return <Menu.Item key={index} {...item.Link} />;
+          return <Menu.Item key={index} {...item.link} />;
         })}
       </Menu.Menu>
-     
     </Menu>
   );
 };
@@ -136,35 +137,36 @@ class NavBar extends React.Component {
 const leftItems = [
   { as: Link, to: "/", content: "Home", key: "home" },
   { as: Link, to: "/products", content: "Products", key: "products" },
-  
+  // { as: Link, to: "/review", content: "Review", key: "review" },
 ];
 
-const rightItems = [];
+const rightItems = [
+  { as: Link, to: "/login", content: "Login", key: "login" },
+];
 
 function Header() {
-const{user,isAuthenticated,logout}=useAuth0()
-rightItems.length=0;
-if(isAuthenticated){
+  const { user, isAuthenticated, logout } = useAuth0();
 
-  rightItems.push({
-    children: [
-      <Image avatar spaced="right" src={user.picture} />,
-      <Dropdown pointing="top left" key="userDropdown">
-        <Dropdown.Menu key="userDropdownMenu">
-          <Dropdown.Item text={user.name} /> 
-          <Dropdown.Item as={Link}to ="/dashboard" text="Dashboard" />
-           <Dropdown.Item onClick={logout} text="Sign out" icon="power" />
-        </Dropdown.Menu>
-      </Dropdown>
-    ],
-  });
+  rightItems.length = 0;
+  if (isAuthenticated) {
+    rightItems.push({
+      children: [
+        <Image avatar spaced="right" src={user.picture} key={nanoid()} />,
+        <Dropdown pointing="top left" text={user.name} key="userDropdown">
+          <Dropdown.Menu key="userDropdownMenu">
+            <Dropdown.Item text={user.name} key={user.name} />
+            <Dropdown.Item as={Link} to="/dashboard" text="Dashboard" key="userDashboard" />
+            <Dropdown.Item onClick={logout} text="Sign out" icon="power" key="userSignout"/>
+          </Dropdown.Menu>
+        </Dropdown>
+      ],
+    });
+  } else {
+    rightItems.push({
+      link: { as: Link, to: "/login", content: "Login", key: "login" },
+    });
+  }
 
-}else{
-  rightItems.push({
-    Link:{as: Link, to: "/login",content: "Login", key: "login" },
- 
-  });
-}
   return (
     <MediaContextProvider>
       <NavBar leftItems={leftItems} rightItems={rightItems}>
