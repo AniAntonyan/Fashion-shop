@@ -1,8 +1,48 @@
-.ui.fixed.menu.top{
-    background-color: rgb(64, 125, 238);
+/* .ui.fixed.menu.top{
+    background-color: #043e48;
 }
 
 .customHeader, .pusher{
     height: 60px;
     
+}
+.logoIcon{
+    cursor: pointer;
+}
+ .pushable {
+    overflow-x: visible;
+    }
+#slide{
+    /* z-index: -1; 
+}
+.slideImg{
+    z-index: -1;
+} */
+.ui.fixed.menu.top,
+.ui.sidebar.menu {
+  background-color: #4e95db;
+}
+
+.customHeader {
+  height: 60px;
+}
+
+#left-pusher.pusher {
+  height: 100%;
+}
+
+.customHeader .pushable {
+  position: fixed;
+  z-index: 101;
+  margin: 0;
+  width: 100%;
+  height: auto;
+  overflow-x: visible;
+}
+
+#left-pusher .menu {
+  top: 60px;
+  width: 120px;
+  height: auto !important;
+  max-height: inherit;
 }
