@@ -1,30 +1,13 @@
 .custom-modal .ui.form{
     width: 50%; 
 }
-.ui.button.buyBtn{
-    position: relative;
-    border: none;
-    background: #0ffbeb;
-    border-radius: 15px;
-    color: blue;
+
+.ui.modal>.image.content {
+    display: flex;
+    gap:20px;
 }
-.ui.button.buyBtn:hover{
-    background: #95eff5; 
-    color: black;
-    cursor: pointer;
-}
-.ui.button.modalBuyBtn{
-    left: 0;
-}
-.ui.modal>.content>.image+.description {
-    font-style: italic;
-    font-weight: 700;
-    color: rgb(197, 145, 160);
-}
-.ui.header{
-    font-weight: 100;
-    color: rgb(7, 6, 6)
-}
-.ui.header+p{
-    color: rgb(193, 193, 193);
+
+.ui.modal>.content>.icon+.description, .ui.modal>.content>.image+.description {
+    flex-grow: 1;
+    min-width: 150px;
 }

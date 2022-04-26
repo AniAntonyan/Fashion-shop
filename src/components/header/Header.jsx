@@ -1,13 +1,13 @@
-import "./header.css";
-import { useState } from "react";
-import { createMedia } from "@artsy/fresnel";
 import React from "react";
-import { Outlet, Link } from "react-router-dom";
+import { createMedia } from "@artsy/fresnel";
 import { Icon, Image, Menu, Sidebar, Dropdown } from "semantic-ui-react";
+import { Link, Outlet } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import logo from "../../logo3.png";
-// import logo from "../../Group 165.png";
-import { nanoid } from 'nanoid';
+import "./Header.css";
+import { nanoid } from "nanoid";
+import { useEffect, useState } from "react";
+import { isUserExists, authoriseUser } from "../../services/api";
+import logo from "../../img/logo.jpg";
 
 const AppMedia = createMedia({
   breakpoints: {
@@ -18,34 +18,34 @@ const AppMedia = createMedia({
     widescreen: 1920,
   },
 });
-
 const { Media, MediaContextProvider } = AppMedia;
 
-const NavBarMobile = ({ children, leftItems, onPusherClick, onToggle, rightItems, visible }) => {
+const NavBarMobile = (props) => {
+  const { children, leftItems, onPusherClick, onToggle, rightItems, visible } =
+    props;
+
   return (
     <Sidebar.Pushable>
-      <Sidebar.Pusher >
+    <Sidebar.Pusher id="left-pusher" dimmed={visible} onClick={onPusherClick}>
+        <Sidebar
+        key={nanoid()}
+          as={Menu}
+          animation="overlay"
+          icon="labeled"
+          inverted
+          items={leftItems}
+          vertical
+          visible={visible}
+        />
+    </Sidebar.Pusher>
 
-      </Sidebar.Pusher>
-      <Sidebar
-      key={nanoid()}
-        as={Menu}
-        animation="overlay"
-        icon="labeled"
-        inverted
-        items={leftItems}
-        vertical
-        visible={visible}
-      />
-      <Sidebar.Pusher
-        dimmed={visible}
-        onClick={onPusherClick}
-      >
+    <Sidebar.Pusher
+    >
         <Menu fixed="top" inverted>
-          <Menu.Item>
-            <Image as={Link} to="/" size="mini" src={logo} className="logoIcon" />
+          <Menu.Item key={nanoid()}>
+            <Image size="mini" src="https://react.semantic-ui.com/logo.png" />
           </Menu.Item>
-          <Menu.Item onClick={onToggle}>
+          <Menu.Item onClick={onToggle} key={nanoid()}>
             <Icon name="sidebar" />
           </Menu.Item>
 
@@ -68,31 +68,30 @@ const NavBarMobile = ({ children, leftItems, onPusherClick, onToggle, rightItems
   );
 };
 
-const NavBarDesktop = ({ leftItems, rightItems }) => {
-  return (
-    <>
-      <Menu fixed="top" inverted>
-        <Menu.Item>
-          <Image as={Link} to="/" size="mini" src={logo} className="logoIcon"/>
-        </Menu.Item>
+const NavBarDesktop = (props) => {
+  const { leftItems, rightItems } = props;
 
-        {leftItems.map((item) => (
-          <Menu.Item {...item} />
-        ))}
-        <Menu.Menu position="right" key="rightItems">
-          {rightItems.map((item, index) => {
-            if (item.children) {
-              return (
-                <Menu.Item key={`rightParams${index}`}>
-                  {item.children}
-                </Menu.Item>
-              );
-            }
-            return <Menu.Item key={index} {...item.link} />;
-          })}
-        </Menu.Menu>
-      </Menu>
-    </>
+  return (
+    <Menu fixed="top" inverted>
+      <Menu.Item key={nanoid()}>
+        <Image as={Link} to="/" size="mini" src={logo} className="logoIcon" />
+      </Menu.Item>
+
+      {leftItems.map((item, index) => (
+        <Menu.Item {...item} key={index} />
+      ))}
+
+      <Menu.Menu position="right" key="rightItems">
+        {rightItems.map((item, index) => {
+          if (item.children) {
+            return (
+              <Menu.Item key={`rightParams${index}`}>{item.children}</Menu.Item>
+            );
+          }
+          return <Menu.Item key={index} {...item.link} />;
+        })}
+      </Menu.Menu>
+    </Menu>
   );
 };
 
@@ -122,29 +121,30 @@ function NavBar({ leftItems, rightItems }) {
     </div>
   );
 }
-// }
-
 const leftItems = [
   { as: Link, to: "/", content: "Home", key: "home" },
-  { as: Link, to: "/Products", content: "Products", key: "products" },
-  // { as: Link, to: "/Reviews", content: "Reviews", key: "reviews" },
+  { as: Link, to: "/products", content: "Products", key: "products" },
 ];
 
-const rightItems = [
-  { as: Link, to: "/login", content: "Login", key: "login" },
-  // { as: Link, to:"/register", content: "Register", key: "register" }
-];
+const rightItems = [{ as: Link, to: "/login", content: "Login", key: "login" }];
 
 function Header() {
-  const { user, isAuthenticated, logout } = useAuth0();
+  const {
+    user,
+    isAuthenticated,
+    logout,
+    error,
+    isLoading,
+    getAccessTokenSilently,
+  } = useAuth0();
+
   rightItems.length = 0;
   if (isAuthenticated) {
-    console.log(user);
     rightItems.push({
       children: [
-        <Image avatar spaced="right" src={user.picture} key="image" />,
+        <Image avatar spaced="right" src={user.picture} key={nanoid()} />,
         <Dropdown pointing="top left" text={user.name} key="userDropdown">
-          <Dropdown.Menu key="userDropdownMenu">
+          <Dropdown.Menu key="userDropdownMenu" id="drop-down">
             <Dropdown.Item text={user.name} key={user.name} />
             <Dropdown.Item
               as={Link}
@@ -161,15 +161,41 @@ function Header() {
           </Dropdown.Menu>
         </Dropdown>,
       ],
-    }); 
-  } else { 
+    });
+  } else {
     rightItems.push({
       link: { as: Link, to: "/login", content: "Login", key: "login" },
     });
   }
+
+  useEffect(() => {
+    (async () => {
+      if (
+        isAuthenticated &&
+        localStorage.getItem("autoriseUser") !== user.nickname
+      ) {
+        let authorised;
+        const isExist = await isUserExists(user.sub);
+   
+        if (!isExist || (isExist.httpStatus === "OK" && !isExist.info.exists)) {
+          const token = await getAccessTokenSilently();
+          authorised = await authoriseUser(user, token);
+        }
+        if (
+          (authorised && authorised.httpStatus === "OK") ||
+          isExist.info.exists
+        ) {
+          localStorage.setItem("autoriseUser", user.nickname);
+        }
+      }
+    })();
+  }, [isAuthenticated]);
+
   return (
     <MediaContextProvider>
-      <NavBar leftItems={leftItems} rightItems={rightItems}></NavBar>
+      <NavBar leftItems={leftItems} rightItems={rightItems}>
+        <Image src="https://react.semantic-ui.com/images/wireframe/paragraph.png" />
+      </NavBar>
     </MediaContextProvider>
   );
 }

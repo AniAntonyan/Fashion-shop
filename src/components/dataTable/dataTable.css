@@ -1,46 +1,87 @@
-.ui.avatar.image.product-icon{
-    width: 50px;
-    height: auto;
-    border-radius: 20%;
-}
-/* .ui.avatar.image{
-    border-radius: 0%; 
-} */
-.grid-table{
+.ui.image.product-icon{
+    width: auto;
     height: 90px;
-}
-.upload{
-   border: none;
-   background: none;
-   color: brown;
-   cursor: pointer;
-}
-.icon.iconUpload{
-   font-size: 20px;
-}
-input[type=file] {
-    display: none;
-}
-.productId{
-    font-family: "Libre Baskerville", serif;
+     
+    }
+
+.grid-table {
+    position: relative;
 }
 
-.ui.button.buyBtn{
-    /* left: 40%; */
-    margin-bottom: 30px;
+.grid-table>.row{
+    height: 120px;
 }
-.price{
+#name-prudct{
+    font-size: 18px;
+    font-weight: 500;
+    
+}
+
+#price-id{
+    font-size: 16px;
+    font-weight: 500;
+}
+
+#status-id{
+    font-weight: 500;
+}
+
+#address-id{
+    font-size: 12px;
+    font-weight: 300;
+}
+#address{
+ font-size: 17px;
+ font-weight: 500;
+}
+
+.phone-pending{
+    font-size: 10px;
+}
+
+.pending-item{
+    border-bottom: 1px solid #999999;
+}
+
+.item{
+    justify-content: space-between;
+}
+
+.ui.button.btn-upload{
+    background: none;
+    
+}
+.green.upload.icon.btn-icon{
     font-size: 14px;
-    font-weight: 900;
-    font-style: italic;
-    color: brown;
 }
-.orderDate{
-    font-size: 8px;
+
+input[type=file] {
+    display: none;
+    
 }
-.tooltip{
-  /* border-radius: 100px; */
-  opacity: 0.7;
-  /* padding: '2em'; */
- /* font-size: '0.5em'; */
+
+.img-icon{
+    cursor: pointer;
+}
+
+.ui.grid.grid-table{
+    margin-bottom: 20px;
+}
+
+.currency{
+    font-size: 10px;
+}
+
+.nine.wide.column.image-upload-form{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.ui.grid>.row{
+    align-items: center;
+}
+
+.ui.grid>.row>.column>.header{
+    padding: 10px;
 }

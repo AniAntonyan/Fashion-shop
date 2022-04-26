@@ -1,3 +1,20 @@
-.ui.inverted.segment{
-    background-color: #043e48;
+.ui.inverted.vertical.segment{
+    background-color: #c14c90;
+    
+}
+
+.six.wide.column,.four.wide.column{
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+}
+ .column{
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.footer{
+    position: absolute;
+    bottom:-35em;
+    width: 100%;
 }

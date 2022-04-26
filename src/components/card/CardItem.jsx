@@ -1,41 +1,35 @@
+import { Card, Image, Button } from "semantic-ui-react";
 import "./cardItem.css";
-import { useAuth0 } from "@auth0/auth0-react";
-import { useState } from "react";
-import { Button, Card, Icon, Image } from "semantic-ui-react";
 import BuyProduct from "../buyProduct/BuyProduct";
+import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
-import logo from "../../logoNavBar.jpg";
+import productImg from "../../img/img1.jpg";
 
-function CardItem({ description, img, name, price, item, currency }) {
+function CardItem({ description, image, name, price, item }) {
   const { isAuthenticated, user } = useAuth0();
-
   return (
     <Card centered>
-      <Image className="cardImg"
-        src={img.length > 0 && img[0].imagePath ? img[0].imagePath : logo}
-      />
+        <Image src={image?image.imagePath: productImg} wrapped ui={false} />
       <Card.Content>
         <Card.Header>{name}</Card.Header>
-        <Card.Content>
-          {price} {currency}
-        </Card.Content>
-        <Card.Description>{description}</Card.Description>
+        <Card.Description>{description} </Card.Description>
       </Card.Content>
 
-      <Card.Content>
+      <Card.Content extra className="buy-info">
+        {price}
         {isAuthenticated ? (
           <BuyProduct
             item={item}
-            productInfo={{ description, img, name, price, currency }}
+            productInfo={{ description, image, name, price }}
           />
         ) : (
-          <Button as={Link} to="/login" className="buyBtn">
+          <Button as={Link} to="/login" color="green" inverted floated="right">
             BUY
           </Button>
-        )}
+        )} 
+        
       </Card.Content>
     </Card>
   );
 }
-
-export default CardItem;
+ export default CardItem;

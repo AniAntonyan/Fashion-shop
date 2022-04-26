@@ -1,36 +1,15 @@
-.ui.card>.image, .ui.cards>.card>.image {
-    width: 200px;
-    background: none;
-    margin-top: 10px;
-}
-.ui.button.buyBtn{
-    position: relative;
-    border: none;
-    background: #fbe8ea;
-    border-radius: 15px;
-    color: chocolate;
-}
-.ui.button.buyBtn:hover{
-    background: #d3c0ba; 
-    color: #fbe8ea;
-    cursor: pointer;
+.ui.card>.image>img,
+.ui.cards>.card>.image>img {
+    width: 100px;
+    background:none;
+    padding: 15px;
 }
 
-.ui.card>.content{
-    font-style: italic;
-    font-weight: 700;
-    color: rgb(42, 2, 14);
-    margin: 5px;
-    border-top: 2px solid ;
+.ui.card>.buy-info{
+    padding: 5px;
+    position: relative;
+    height: 60px;
+    width: 100%;
+    border-radius: 30px;
 }
-.ui.card>.content>.header:not(.ui){
-    font-weight: 100;
-    color: rgb(42, 2, 14);
-}
-.ui.card>.content>.description{
-    color: rgb(42, 2, 14);
-}
-.ui.centered.card{
-    border-radius: 30px 30px;
-    box-shadow:10px 8px 4px 4px; color:rgba(23, 5, 94, 0.521);
- }
+

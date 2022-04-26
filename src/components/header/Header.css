@@ -1,26 +1,6 @@
-/* .ui.fixed.menu.top{
-    background-color: #043e48;
-}
-
-.customHeader, .pusher{
-    height: 60px;
-    
-}
-.logoIcon{
-    cursor: pointer;
-}
- .pushable {
-    overflow-x: visible;
-    }
-#slide{
-    /* z-index: -1; 
-}
-.slideImg{
-    z-index: -1;
-} */
 .ui.fixed.menu.top,
 .ui.sidebar.menu {
-  background-color: #4e95db;
+  background-color: #c14c90;
 }
 
 .customHeader {

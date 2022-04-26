@@ -1,8 +1,7 @@
-
-.uploadedImages{
-    display: flex;
-    
-}
 .dashboard{
-    margin-top: 20px;
+margin-top: 80px;
+border: 2px solid #c14c90;
+padding: 20px;
+border-radius: 20px;
 }
+
