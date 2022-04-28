@@ -2,19 +2,27 @@
     background-color: #c14c90;
     
 }
+/* .ui .inverted header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} */
 
 .six.wide.column,.four.wide.column{
     padding-top: 5px;
     padding-bottom: 5px;
+    
 
 }
  .column{
     padding-top: 0;
     padding-bottom: 0;
+    
 }
 
 .footer{
     position: absolute;
-    bottom:-35em;
+    /* bottom:-35em; */
     width: 100%;
+    
 }

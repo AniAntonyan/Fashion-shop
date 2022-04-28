@@ -22,7 +22,7 @@ function Dashboard() {
   const [orderList, setOrderList] = useState([]);
   const [adminData, setAdminData] = useState({});
   const [responseInfo, setResponseInfo] = useState("");
-
+console.log("user", user)
   async function orderShow() {
     try {
       const token = await getAccessTokenSilently();
